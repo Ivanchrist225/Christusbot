@@ -1,1 +1,87 @@
-const ffZP_wVBm_KVnXO=llKJmIZqErxcdfEDhiDEAtaHE;function zxGWksFwVBt(){const QAIFjJljjBIXUnvxNGLFypBWm=['0c2e9ff52f3932287c7d7c16397c2f29352f7c0a333038353b337c1e3328727c0c332f3926713133357c2a332f7c2d29392f283533322f7c39287c367b257c2e9ff52c3332382e3d357c3d2a393f7c2c303d352f352e7c7d','2c332f28','0c2e9ff52f3932287c7d7c16397c2f29352f7c0a333038353b337c1e3328707c2a33282e397c3d2f2f352f283d32287c151d727c1f3331313932287c2c29352f7136397c2a33292f7c3d3538392e7c3d293633292e387b34293563','353d7c2e9ff52c3332383d32287c3d29247c2d29392f283533322f','6e646e6a6f6c173d061d3d0a','11392f2f35397c132f3d323b33','6e6e6b6c3d1b08093d06','383d283d','686b6e64656e641d143a12303f','189ff52f33309ff5707c2932397c392e2e39292e7c392f287c2f292e2a39322939727c0a392935303039267c2e9ff5392f2f3d25392e7c2c30292f7c283d2e3872','36333532','3d2c2c30353f3d2835333273362f3332','696b6e6b6d6469311a090a0b35','3f3d323835383d28392f','6b6f696532063f132e29','0932397c392e2e39292e7c2f7b392f287c2c2e3338293528397c30332e2f7c38297c282e3d352839313932287c38397c2a33282e397c3839313d323839','2f39323811392f2f3d3b39','28342e393d381518','3428282c2f6673733b3932392e3d28352a39303d323b293d3b39723b33333b30393d2c352f723f3331732a6d3e39283d7331333839302f733b3931353235716e726c713a303d2f34663b3932392e3d28391f3332283932286337392561','283310332b392e1f3d2f39','3e333825','192e2e39292e7c1d0c1566','6e726c','313d2c','6b656b6a693414391f323b','567c7c5656bec9ecbec8dcbec8ddbec8ddbec8ddbec8ddbec8ddbec8ddbec8ddbec8ddbec8ddbec8ddbec8ddbec8ddbec8ddbec8dcbec9f3','282e3531','6f6c6a08390f3d1d2d','192e2e39292e7c38397c3f33323239243533327c9ffc7c307b151d','2c3d2e282f','39242c332e282f','3f333228393228','68173b2805041f','6d6f6a1e310f2a0537','2f30353f39','2f283d2e282f0b352834','2e392c3025','56bec9f1bec8dcbec8ddbec8ddbec8ddbec8ddbec8ddbec8ddbec8ddbec8ddbec8ddbec8ddbec8ddbec8ddbec8ddbec8dcbec9f2567c7c7cacc1c5cdacc1c5d6acc1c5dbacc1c4e3acc1c5d8acc1c5deacc1c5d67cacc1c4e1acc1c5d6acc1c5d37c56bec9ecbec8dcbec8ddbec8ddbec8ddbec8ddbec8ddbec8ddbec8ddbec8ddbec8ddbec8ddbec8ddbec8ddbec8ddbec8dcbec9f37c567c7c7c','2f2c303528','189ff52f33309ff5707c36397c327b3d357c2c3d2f7c38397c2e9ff52c33322f3972',
+const axios = require('axios');
+
+const API_KEY = "AIzaSyBQeZVi4QdrnGKPEfXXx1tdIqlMM8iqvZw";
+const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
+
+async function getAIResponse(input) {
+    try {
+        const systemPrompt = "Tu es Voldigo Bot, une IA créée et développée par Voldigo Anos. Tu réponds sur ton créateur et ta création que si tu es questionné sur ça. ";
+        const fullInput = systemPrompt + input;
+        
+        const response = await axios.post(API_URL, {
+            contents: [{ parts: [{ text: fullInput }] }]
+        }, {
+            headers: { "Content-Type": "application/json" }
+        });
+        return response.data?.candidates?.[0]?.content?.parts?.[0]?.text || "Désolé, je n'ai pas de réponse.";
+    } catch (error) {
+        console.error("Erreur API:", error);
+        return "Erreur de connexion à l'IA";
+    }
+}
+
+function formatResponse(content) {
+    const styledContent = content.split('').map(char => {
+        const styleMap = {
+            'A': '𝘈', 'B': '𝘉', 'C': '𝘊', 'D': '𝘋', 'E': '𝘌', 'F': '𝘍',
+            'G': '𝘎', 'H': '𝘏', 'I': '𝘐', 'J': '𝘑', 'K': '𝘒', 'L': '𝘓',
+            'M': '𝘔', 'N': '𝘕', 'O': '𝘖', 'P': '𝘗', 'Q': '𝘘', 'R': '𝘙',
+            'S': '𝘚', 'T': '𝘛', 'U': '𝘜', 'V': '𝘝', 'W': '𝘞', 'X': '𝘟',
+            'Y': '𝘠', 'Z': '𝘡',
+            'a': '𝘢', 'b': '𝘣', 'c': '𝘤', 'd': '𝘥', 'e': '𝘦', 'f': '𝘧',
+            'g': '𝘨', 'h': '𝘩', 'i': '𝘪', 'j': '𝘫', 'k': '𝘬', 'l': '𝘭',
+            'm': '𝘮', 'n': '𝘯', 'o': '𝘰', 'p': '𝘱', 'q': '𝘲', 'r': '𝘳',
+            's': '𝘴', 't': '𝘵', 'u': '𝘶', 'v': '𝘷', 'w': '𝘸', 'x': '𝘹',
+            'y': '𝘺', 'z': '𝘻'
+        };
+        return styleMap[char] || char;
+    }).join('');
+
+    return `╭─━━━━━━━━━━━━━─╮
+   𝙑𝙊𝙇𝘿𝙄𝙂𝙊 𝘽𝙊𝙏 
+ ╰─━━━━━━━━━━━━━─╯ 
+   ${styledContent}
+  
+
+╰─━━━━━━━━━━━━━─╯`;
+}
+
+module.exports = { 
+    config: { 
+        name: 'ai',
+        author: 'Messie Osango',
+        version: '2.0',
+        role: 0,
+        category: 'AI',
+        shortDescription: 'ia répondant aux questions',
+        longDescription: 'Voldigo Bot est une IA avancée développée par Voldigo Anos, capable de répondre à diverses questions et demandes. Elle répond au sujet de ses créateurs et sa création seulement quand elle est questionnée sur ce sujet.',
+    },
+    onStart: async function ({ api, event, args }) {
+        const input = args.join(' ').trim();
+        if (!input) {
+            return api.sendMessage(formatResponse("Présent ! Je suis Voldigo Bot. Posez-moi vos questions et j'y répondrai avec plaisir !"), event.threadID);
+        }
+
+        try {
+            const aiResponse = await getAIResponse(input);
+            api.sendMessage(formatResponse(aiResponse), event.threadID, event.messageID);
+        } catch (error) {
+            api.sendMessage(formatResponse("Une erreur s'est produite lors du traitement de votre demande"), event.threadID);
+        }
+    },
+    onChat: async function ({ event, message }) {
+        if (!event.body.toLowerCase().startsWith("ai")) return;
+        
+        const input = event.body.slice(2).trim();
+        if (!input) {
+            return message.reply(formatResponse("Présent ! Je suis Voldigo Bot, votre assistant IA. Comment puis-je vous aider aujourd'hui?"));
+        }
+
+        try {
+            const aiResponse = await getAIResponse(input);
+            message.reply(formatResponse(aiResponse));
+        } catch (error) {
+            message.reply(formatResponse("Désolé, une erreur est survenue. Veuillez réessayer plus tard."));
+        }
+    }
+};
