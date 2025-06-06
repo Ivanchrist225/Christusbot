@@ -17,7 +17,7 @@ function applyFont(text) {
 
 function createBox(content) {
     const lines = content.split('\n');
-    let result = `╭─━━━━━━━━━━━━━─╮\n   ${applyFont("𝙑𝙊𝙇𝘿𝙄𝙂𝙊 𝘽𝙊𝙏 ")} \n╰─━━━━━━━━━━━━━─╯\n`;
+    let result = `╭─━━━━━━━━━━━━━─╮\n   ${applyFont("𝗖𝗛𝗥𝗜𝗦𝗧𝗨𝗦 𝗕𝗢𝗧")} \n╰─━━━━━━━━━━━━━─╯\n`;
     
     for (const line of lines) {
         if (line.trim() === '') continue;
